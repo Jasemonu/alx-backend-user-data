@@ -14,7 +14,6 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
-
 AUTH_TYPE = os.getenv("AUTH_TYPE")
 
 # check the AUTH_TYPE
@@ -26,7 +25,7 @@ elif AUTH_TYPE == 'basic_auth':
     auth = BasicAuth()
 elif AUTH_TYPE == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
-    auth = SessionAuth())
+    auth = SessionAuth()
 
 
 @app.before_request
@@ -61,14 +60,26 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """not authorized error handler
+    """_summary_
+
+    Args:
+        error (_type_): _description_
+
+    Returns:
+        str: _description_
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ forbidden handler
+    """_summary_
+
+    Args:
+            error (_type_): _description_
+
+    Returns:
+            str: _description_
     """
     return jsonify({"error": "Forbidden"}), 403
 
