@@ -45,7 +45,7 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """A method that updates user attributes"""
-        try:
+
             user = self.find_user_by(id=user_id)
             for key, value in kwargs.items():
                 if not hasattr(User, key):
