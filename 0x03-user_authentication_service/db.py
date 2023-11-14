@@ -29,6 +29,7 @@ class DB:
     def add_user(self, email: str, hashed_password: str) -> User:
         """A method for adding new users into the database"""
         new_user = User(email=email, hashed_password=hashed_password)
+        # add new user and commit to database
         self._session.add(new_user)
         self._session.commit()
         return new_user
@@ -53,5 +54,4 @@ class DB:
                     raise ValueError
 
             self._session.commit()
-        except NoResultFound as e:
-            raise e
+            return None
