@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+i#!/usr/bin/env python3
 """A user database model"""
 
 
@@ -9,9 +9,9 @@ Base = declarative_base()
 
 
 class User(Base):
+    """users table"""
     __tablename__ = 'users'
-    """user table"""
-
+    
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
     hashed_password = Column(String(250), nullable=False)
