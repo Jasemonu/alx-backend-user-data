@@ -17,8 +17,11 @@ def _hash_password(password: str) -> str:
 
 
 class Auth:
+    """Auth class to interact with the authentication database.
+    """
+
     def __init__(self):
-        """Authentication class"""
+        """Instanciating DB"""
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> Union[None, User]:
