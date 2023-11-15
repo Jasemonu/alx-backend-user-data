@@ -8,7 +8,7 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 # from uuid import uuid4
 
-from typing import Union
+from typing import TypeVar
 
 
 def _hash_password(password: str) -> str:
@@ -24,14 +24,12 @@ class Auth:
         """Instanciating DB"""
         self._db = DB()
 
-    def register_user(self, email: str, password: str) -> Union[None, User]:
-        """User registration method"""
+    def register_user(self, email: str, password: str) -> TypeVar('User'):
+        """return a User object."""
         try:
             self._db.find_user_by(email=email)
         except NoResultFound:
-            # User not found, proceed with registration
-
-            return self._db.add_user(email, _hash_password(password))
-        else:
-            # if user already exists, throw error
-            raise ValueError('User {} already exists'.format(email))
+            hashed_password = _hash_password(password)
+            user = self._db.add_user(email, hashed_password)
+            return user
+        raise ValueError('User {} already exists'.format(email))
